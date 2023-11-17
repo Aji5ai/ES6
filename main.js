@@ -20,6 +20,8 @@ console.log(tasks);
 // ES6
 let newTask = {title: "Ranger le bureau", isComplete: false};
 const addTask = (task) => (tasks = [...tasks, task]); // le ...tasks permet de récupérer les éléments du tableau pour y ajouter ensuite un autre élément
+//Note :// let addTask = tasks; dans ce contexte addTask va pointer au même espace de stockage que tasks. Donc si on modifie la dernière ça changera aussi la première. C'est une copie par référence. 
+//Si on veut faire une copie par valeur il faut faire : let addTask = [...tasks]; Dans ce cas on a bien deux objets qui pointent à deux endroits de stockage différents qui ont pour l'instant le même contenu. Pour en savoir plus, lire "Valeurs & références" ici : https://blog.coddity.com/articles/approfondir-js/
 
 // Appel de la fonction
 addTask(newTask);
@@ -29,7 +31,7 @@ console.log(tasks);
 // ES6
 const removeTask = (taskToRemove) => {
   tasks = tasks.filter((task) => task.title !== `${taskToRemove}`); // on regarde à chaque élément si son titre correspond à celui qui est entré en paramètre (taskToRemove), et on prends ceux qui ne correspondent pas
-}; // Note : pas besoin de return et bien choisir un nom différent entre taskToRemove et task (ne pas mettre task partout)
+}; // Note : pas besoin de return et bien choisir un nom différent entre taskToRemove et task (ne pas mettre task partout). Un filter va boucler sur tous les éléments de la liste et retourner un tableau, comme map. Filter trie, map modifie.
 removeTask("Ranger le bureau");
 console.log(tasks);
 
@@ -51,6 +53,7 @@ console.log(tasks);
 // Afficher que les tâches incomplètes (.filter + .map)
 const stillToDo = () => {
   let tasksToDo = tasks.filter((task) => task.isComplete == false); // on ne garde que les objets qui ont un status false
+  // S'écrit aussi : let tasksToDo = tasks.filter((task) => !task.isComplete); (mais je comprends pas si ça prend les false ou si c'est juste l'inverse)
   console.log("Liste des tâches restantes à faire (seulement leurs titres) : ");
   console.log(tasksToDo.map((task) => task.title)); // On extrait dans un nouveau tableau les titres (uniquement) et on les affiche
 };
